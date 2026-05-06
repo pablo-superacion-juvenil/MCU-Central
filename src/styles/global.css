@@ -65,7 +65,9 @@ a {
   .objetivos,
   .redil-banner,
   .pilares,
-  .photo-grid {
+  .photo-grid,
+  .stats-bar,
+  .teaser {
     opacity: 0;
     transform: translateY(20px);
     transition: opacity 0.6s ease, transform 0.6s ease;
@@ -75,7 +77,9 @@ a {
   .objetivos.visible,
   .redil-banner.visible,
   .pilares.visible,
-  .photo-grid.visible {
+  .photo-grid.visible,
+  .stats-bar.visible,
+  .teaser.visible {
     opacity: 1;
     transform: translateY(0);
   }
