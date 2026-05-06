@@ -2,30 +2,34 @@
 import Layout from '../layouts/Layout.astro';
 import Nav from '../components/Nav.astro';
 import Hero from '../components/Hero.astro';
-import SectionHeader from '../components/SectionHeader.astro';
-import Historia from '../components/Historia.astro';
-import Objetivos from '../components/Objetivos.astro';
-import PhotoStrip from '../components/PhotoStrip.astro';
-import Redil from '../components/Redil.astro';
+import StatsBar from '../components/StatsBar.astro';
+import SectionTeaser from '../components/SectionTeaser.astro';
 import Footer from '../components/Footer.astro';
 
-import nosotros1 from '../assets/images/nosotros/nosotros-1.jpg';
 import nosotros2 from '../assets/images/nosotros/nosotros-2.jpg';
-import nosotros3 from '../assets/images/nosotros/nosotros-3.jpg';
-import nosotros4 from '../assets/images/nosotros/nosotros-4.jpg';
+import redil1 from '../assets/images/redil/redil-1.jpg';
 ---
 
 <Layout title="MCU — Misión Católica Universitaria">
   <Nav currentPage="home" />
   <Hero />
-
-  <section id="nosotros" class="section-padding">
-    <SectionHeader tag="Conócenos" title="Quiénes Somos" />
-    <Historia />
-  </section>
-
-  <Objetivos />
-  <PhotoStrip images={[nosotros1, nosotros2, nosotros3, nosotros4]} />
-  <Redil />
+  <StatsBar />
+  <SectionTeaser
+    title="Quiénes Somos"
+    description="Somos una comunidad de jóvenes universitarios católicos comprometidos con la evangelización, la fraternidad y la formación cristiana desde 1979."
+    image={nosotros2}
+    imageAlt="Miembros de MCU reunidos"
+    href="/nosotros"
+    buttonText="Conócenos"
+  />
+  <SectionTeaser
+    title="REDIL"
+    description="Retiro de Líderes — un espacio de encuentro, formación y renovación espiritual para los líderes misioneros de nuestras comunidades universitarias."
+    image={redil1}
+    imageAlt="Participantes de REDIL"
+    href="/redil"
+    buttonText="Conoce REDIL"
+    reverse
+  />
   <Footer />
 </Layout>
