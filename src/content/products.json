@@ -1,26 +1,26 @@
 [
   {
-    "id": "playera-classic",
-    "name": "Playera MCU Classic",
-    "price": 350,
-    "category": "playeras",
-    "image": "/images/merch/playera-classic.jpg",
-    "whatsappMessage": "Hola, me interesa la Playera MCU Classic ($350 MXN)"
+    "id": "camisas-mcu",
+    "name": "Camisas MCU",
+    "price": 400,
+    "category": "camisas",
+    "image": "/images/merch/Camisas.jpeg",
+    "whatsappMessage": "Hola, me interesan las Camisas MCU ($400 MXN)"
   },
   {
-    "id": "hoodie-redil",
-    "name": "Hoodie REDIL 2025",
-    "price": 650,
-    "category": "hoodies",
-    "image": "/images/merch/hoodie-redil.jpg",
-    "whatsappMessage": "Hola, me interesa el Hoodie REDIL 2025 ($650 MXN)"
+    "id": "gorras-mcu",
+    "name": "Gorras MCU",
+    "price": 250,
+    "category": "gorras",
+    "image": "/images/merch/Gorras.jpeg",
+    "whatsappMessage": "Hola, me interesan las Gorras MCU ($250 MXN)"
   },
   {
-    "id": "sticker-pack",
-    "name": "Sticker Pack",
-    "price": 80,
-    "category": "accesorios",
-    "image": "/images/merch/sticker-pack.jpg",
-    "whatsappMessage": "Hola, me interesa el Sticker Pack ($80 MXN)"
+    "id": "termos-mcu",
+    "name": "Termos MCU",
+    "price": 450,
+    "category": "termos",
+    "image": "/images/merch/Termos.jpeg",
+    "whatsappMessage": "Hola, me interesan los Termos MCU ($450 MXN)"
   }
 ]

@@ -11,6 +11,9 @@ import products from '../content/products.json';
 <Layout title="Merch — MCU">
   <Nav currentPage="merch" />
   <PageHero title="Merch MCU" />
+  <section class="merch-cover">
+    <img src="/images/merch/Todo.jpeg" alt="Coleccion completa de merch MCU" class="merch-cover__image" />
+  </section>
   <MerchFilter />
   <div class="merch-grid section-padding">
     {products.map((p) => (
@@ -27,6 +30,19 @@ import products from '../content/products.json';
 </Layout>
 
 <style>
+  .merch-cover {
+    padding: 2rem 1.5rem 0;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .merch-cover__image {
+    width: 100%;
+    display: block;
+    border-radius: 12px;
+    border: 1px solid var(--gray-light);
+  }
+
   .merch-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
