@@ -1,0 +1,285 @@
+---
+import { Image } from 'astro:assets';
+import logoFull from '../assets/images/logos/logo-full.png';
+
+interface Props {
+  currentPage?: 'home' | 'merch' | 'contacto';
+}
+
+const { currentPage = 'home' } = Astro.props;
+---
+
+<nav class="site-nav">
+  <div class="nav-inner">
+    <!-- Logo + Brand -->
+    <a href="/" class="nav-brand" aria-label="MCU — Inicio">
+      <Image
+        src={logoFull}
+        alt="MCU Logo"
+        width={40}
+        height={40}
+        class="nav-logo"
+      />
+      <span class="nav-brand-text">MCU</span>
+    </a>
+
+    <!-- Desktop links -->
+    <ul class="nav-links" id="nav-links" role="list">
+      <li>
+        <a
+          href="/#inicio"
+          class:list={['nav-link', { active: currentPage === 'home' }]}
+        >Inicio</a>
+      </li>
+      <li>
+        <a href="/#nosotros" class="nav-link">Nosotros</a>
+      </li>
+      <li>
+        <a href="/#redil" class="nav-link">REDIL</a>
+      </li>
+      <li>
+        <a
+          href="/contacto"
+          class:list={['nav-link', { active: currentPage === 'contacto' }]}
+        >Contáctanos</a>
+      </li>
+      <li>
+        <a
+          href="/merch"
+          class:list={['nav-link', 'nav-link--merch', { active: currentPage === 'merch' }]}
+        >Merch</a>
+      </li>
+    </ul>
+
+    <!-- Hamburger button (mobile) -->
+    <button
+      class="nav-hamburger"
+      id="nav-hamburger"
+      aria-label="Abrir menú"
+      aria-expanded="false"
+      aria-controls="nav-links"
+    >
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
+  </div>
+</nav>
+
+<script>
+  const hamburger = document.getElementById('nav-hamburger') as HTMLButtonElement | null;
+  const navLinks = document.getElementById('nav-links') as HTMLElement | null;
+
+  if (hamburger && navLinks) {
+    hamburger.addEventListener('click', () => {
+      const isOpen = navLinks.classList.toggle('is-open');
+      hamburger.classList.toggle('is-open', isOpen);
+      hamburger.setAttribute('aria-expanded', String(isOpen));
+      hamburger.setAttribute('aria-label', isOpen ? 'Cerrar menú' : 'Abrir menú');
+    });
+
+    // Close menu when a link is clicked (useful for anchor links)
+    navLinks.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('is-open');
+        hamburger.classList.remove('is-open');
+        hamburger.setAttribute('aria-expanded', 'false');
+        hamburger.setAttribute('aria-label', 'Abrir menú');
+      });
+    });
+  }
+</script>
+
+<style>
+  /* ── Nav shell ──────────────────────────────────────────── */
+  .site-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: var(--white);
+    border-bottom: 2px solid var(--navy);
+    height: 60px;
+  }
+
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    height: 100%;
+  }
+
+  /* ── Brand ──────────────────────────────────────────────── */
+  .nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    color: var(--navy);
+    flex-shrink: 0;
+  }
+
+  .nav-logo {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .nav-brand-text {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--navy);
+  }
+
+  /* ── Links list ─────────────────────────────────────────── */
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .nav-link {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--navy);
+    text-decoration: none;
+    opacity: 0.7;
+    padding-bottom: 2px;
+    border-bottom: 2px solid transparent;
+    transition: opacity 0.2s ease, border-color 0.2s ease;
+  }
+
+  .nav-link:hover,
+  .nav-link.active {
+    opacity: 1;
+    border-bottom-color: var(--red);
+  }
+
+  /* ── Merch pill button ──────────────────────────────────── */
+  .nav-link--merch {
+    background: var(--red);
+    color: var(--white);
+    opacity: 1;
+    padding: 0.35rem 1rem;
+    border-radius: 20px;
+    border-bottom: 2px solid transparent;
+    transition: opacity 0.2s ease, filter 0.2s ease;
+  }
+
+  .nav-link--merch:hover,
+  .nav-link--merch.active {
+    opacity: 1;
+    border-bottom-color: transparent;
+    filter: brightness(1.1);
+  }
+
+  /* ── Hamburger button ───────────────────────────────────── */
+  .nav-hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 24px;
+    height: 18px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    flex-shrink: 0;
+  }
+
+  .nav-hamburger .bar {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background: var(--navy);
+    border-radius: 2px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    transform-origin: center;
+  }
+
+  /* Animated X when open */
+  .nav-hamburger.is-open .bar:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+
+  .nav-hamburger.is-open .bar:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+
+  .nav-hamburger.is-open .bar:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+
+  /* ── Mobile breakpoint ──────────────────────────────────── */
+  @media (max-width: 768px) {
+    .nav-hamburger {
+      display: flex;
+    }
+
+    .nav-links {
+      display: none;
+      position: absolute;
+      top: 60px;
+      left: 0;
+      right: 0;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0;
+      background: var(--white);
+      border-bottom: 2px solid var(--navy);
+      padding: 1rem 1.5rem;
+    }
+
+    .nav-links.is-open {
+      display: flex;
+    }
+
+    .nav-links li {
+      width: 100%;
+    }
+
+    .nav-link {
+      display: block;
+      width: 100%;
+      padding: 0.75rem 0;
+      border-bottom: none;
+      border-top: 1px solid var(--gray-light);
+    }
+
+    .nav-links li:first-child .nav-link {
+      border-top: none;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      border-bottom: none;
+      color: var(--red);
+    }
+
+    .nav-link--merch {
+      display: inline-block;
+      width: auto;
+      margin-top: 0.5rem;
+    }
+
+    .nav-link--merch:hover,
+    .nav-link--merch.active {
+      color: var(--white);
+    }
+  }
+</style>

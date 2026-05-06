@@ -1,0 +1,46 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import PageHero from '../components/PageHero.astro';
+import ContactForm from '../components/ContactForm.astro';
+import ContactInfo from '../components/ContactInfo.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="Contáctanos — MCU">
+  <Nav currentPage="contacto" />
+  <PageHero title="Contáctanos" />
+
+  <div class="contact-layout section-padding">
+    <div class="contact-layout__form">
+      <ContactForm />
+    </div>
+    <div class="contact-layout__info">
+      <ContactInfo />
+    </div>
+  </div>
+
+  <Footer />
+</Layout>
+
+<style>
+  .contact-layout {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+  }
+
+  .contact-layout__form {
+    flex: 1.2;
+  }
+
+  .contact-layout__info {
+    flex: 0.8;
+  }
+
+  @media (max-width: 768px) {
+    .contact-layout {
+      flex-direction: column-reverse;
+    }
+  }
+</style>

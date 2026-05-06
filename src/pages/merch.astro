@@ -1,0 +1,47 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import PageHero from '../components/PageHero.astro';
+import MerchFilter from '../components/MerchFilter.astro';
+import ProductCard from '../components/ProductCard.astro';
+import Footer from '../components/Footer.astro';
+import products from '../content/products.json';
+---
+
+<Layout title="Merch — MCU">
+  <Nav currentPage="merch" />
+  <PageHero title="Merch MCU" />
+  <MerchFilter />
+  <div class="merch-grid section-padding">
+    {products.map((p) => (
+      <ProductCard
+        name={p.name}
+        price={p.price}
+        image={p.image}
+        category={p.category}
+        whatsappMessage={p.whatsappMessage}
+      />
+    ))}
+  </div>
+  <Footer />
+</Layout>
+
+<style>
+  .merch-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  @media (max-width: 1023px) {
+    .merch-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .merch-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

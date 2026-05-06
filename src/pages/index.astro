@@ -1,0 +1,31 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Hero from '../components/Hero.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import Historia from '../components/Historia.astro';
+import Objetivos from '../components/Objetivos.astro';
+import PhotoStrip from '../components/PhotoStrip.astro';
+import Redil from '../components/Redil.astro';
+import Footer from '../components/Footer.astro';
+
+import nosotros1 from '../assets/images/nosotros/nosotros-1.jpg';
+import nosotros2 from '../assets/images/nosotros/nosotros-2.jpg';
+import nosotros3 from '../assets/images/nosotros/nosotros-3.jpg';
+import nosotros4 from '../assets/images/nosotros/nosotros-4.jpg';
+---
+
+<Layout title="MCU — Misión Católica Universitaria">
+  <Nav currentPage="home" />
+  <Hero />
+
+  <section id="nosotros" class="section-padding">
+    <SectionHeader tag="Conócenos" title="Quiénes Somos" />
+    <Historia />
+  </section>
+
+  <Objetivos />
+  <PhotoStrip images={[nosotros1, nosotros2, nosotros3, nosotros4]} />
+  <Redil />
+  <Footer />
+</Layout>

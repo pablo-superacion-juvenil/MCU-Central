@@ -1,0 +1,223 @@
+---
+import { Image } from 'astro:assets';
+import fallbackImage from '../assets/images/portada/portada-1.jpg';
+---
+
+<section id="inicio" class="hero">
+  <!-- YouTube video background -->
+  <div class="hero__video-wrapper" aria-hidden="true">
+    <iframe
+      class="hero__iframe"
+      src="https://www.youtube.com/embed/JKtriWie5H4?autoplay=1&mute=1&loop=1&playlist=JKtriWie5H4&controls=0&showinfo=0&modestbranding=1&rel=0&disablekb=1&playsinline=1"
+      title="Hero background video"
+      frameborder="0"
+      allow="autoplay; encrypted-media"
+      allowfullscreen
+    ></iframe>
+  </div>
+
+  <!-- Fallback image (shown when iframe hasn't loaded or JS is off) -->
+  <div class="hero__fallback" aria-hidden="true">
+    <Image
+      src={fallbackImage}
+      alt=""
+      class="hero__fallback-img"
+      widths={[768, 1280, 1920]}
+      sizes="100vw"
+      loading="eager"
+    />
+  </div>
+
+  <!-- Navy overlay -->
+  <div class="hero__overlay" aria-hidden="true"></div>
+
+  <!-- Centred content -->
+  <div class="hero__content">
+    <h1 class="hero__title">Todo por amor a Cristo</h1>
+    <div class="hero__line" aria-hidden="true"></div>
+    <p class="hero__subtitle">Misión Católica Universitaria</p>
+  </div>
+
+  <!-- Scroll indicator -->
+  <button class="hero__scroll-indicator" aria-label="Desplázate hacia abajo" id="heroScrollBtn">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="28"
+      height="28"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+    >
+      <polyline points="6 9 12 15 18 9"></polyline>
+    </svg>
+  </button>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    min-height: 600px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ── Video layer ─────────────────────────────────────────── */
+  .hero__video-wrapper {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    /* Hide the fallback once the iframe is present */
+  }
+
+  .hero__iframe {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    /* Oversized so it covers without black bars regardless of aspect ratio */
+    width: 120%;
+    height: 120%;
+    transform: translate(-50%, -50%);
+    border: 0;
+    pointer-events: none;
+  }
+
+  /* ── Fallback image layer ────────────────────────────────── */
+  .hero__fallback {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+  }
+
+  .hero__fallback-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  /* ── Navy overlay ────────────────────────────────────────── */
+  .hero__overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: rgba(15, 27, 51, 0.75);
+  }
+
+  /* ── Centred content ─────────────────────────────────────── */
+  .hero__content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
+    text-align: center;
+    padding: 0 1.5rem;
+  }
+
+  .hero__title {
+    font-family: var(--font-heading);
+    font-size: clamp(3rem, 8vw, 5rem);
+    color: var(--white);
+    text-transform: uppercase;
+    letter-spacing: 6px;
+    line-height: 1.05;
+    margin: 0;
+  }
+
+  .hero__line {
+    width: 60px;
+    height: 3px;
+    background: var(--red);
+    border: none;
+    flex-shrink: 0;
+  }
+
+  .hero__subtitle {
+    font-family: var(--font-body);
+    font-weight: 300;
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.7);
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    margin: 0;
+  }
+
+  /* ── Scroll indicator ────────────────────────────────────── */
+  .hero__scroll-indicator {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.7);
+    animation: bounce 2s ease-in-out infinite;
+    transition: opacity 0.4s ease;
+  }
+
+  .hero__scroll-indicator:hover {
+    color: var(--white);
+  }
+
+  .hero__scroll-indicator.is-hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  @keyframes bounce {
+    0%, 100% {
+      transform: translateX(-50%) translateY(0);
+    }
+    50% {
+      transform: translateX(-50%) translateY(8px);
+    }
+  }
+</style>
+
+<script>
+  const btn = document.getElementById('heroScrollBtn');
+
+  if (btn) {
+    const THRESHOLD = 100;
+
+    function updateVisibility() {
+      if (window.scrollY > THRESHOLD) {
+        btn.classList.add('is-hidden');
+      } else {
+        btn.classList.remove('is-hidden');
+      }
+    }
+
+    // Scroll smoothly to the next section when clicked
+    btn.addEventListener('click', () => {
+      const hero = document.getElementById('inicio');
+      if (hero) {
+        const nextEl = hero.nextElementSibling as HTMLElement | null;
+        if (nextEl) {
+          nextEl.scrollIntoView({ behavior: 'smooth' });
+        } else {
+          window.scrollBy({ top: window.innerHeight, behavior: 'smooth' });
+        }
+      }
+    });
+
+    window.addEventListener('scroll', updateVisibility, { passive: true });
+    updateVisibility();
+  }
+</script>

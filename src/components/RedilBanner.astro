@@ -1,0 +1,144 @@
+---
+import { Image } from 'astro:assets';
+import bg from '../assets/images/redil/redil-1.jpg';
+import photo2 from '../assets/images/redil/redil-2.jpg';
+import photo3 from '../assets/images/redil/redil-3.jpg';
+---
+
+<div class="redil-banner">
+  <Image
+    src={bg}
+    alt="REDIL fondo"
+    class="redil-banner__bg"
+    widths={[800, 1200, 1600]}
+    sizes="100vw"
+  />
+  <div class="redil-banner__overlay"></div>
+  <div class="redil-banner__content">
+    <div class="redil-banner__text">
+      <h3 class="redil-banner__title">¿Qué es REDIL?</h3>
+      <p class="redil-banner__desc">
+        REDIL es el Retiro de Líderes de la Misión Católica Universitaria. Un espacio de encuentro,
+        formación y renovación espiritual diseñado para los líderes misioneros de nuestras
+        comunidades universitarias.
+      </p>
+      <p class="redil-banner__desc">
+        Durante este retiro, los líderes se capacitan, se fortalecen en hermandad y se encuentran
+        profundamente con Dios, para regresar enviados a transformar sus universidades con el amor
+        de Cristo.
+      </p>
+    </div>
+    <div class="redil-banner__photos">
+      <Image
+        src={photo2}
+        alt="REDIL foto 2"
+        class="redil-banner__photo"
+        width={180}
+        height={240}
+      />
+      <Image
+        src={photo3}
+        alt="REDIL foto 3"
+        class="redil-banner__photo redil-banner__photo--offset"
+        width={180}
+        height={240}
+      />
+    </div>
+  </div>
+</div>
+
+<style>
+  .redil-banner {
+    position: relative;
+    min-height: 400px;
+    overflow: hidden;
+  }
+
+  .redil-banner__bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .redil-banner__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, rgba(15, 27, 51, 0.9), rgba(15, 27, 51, 0.4));
+  }
+
+  .redil-banner__content {
+    position: relative;
+    z-index: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    padding: 3rem 1.5rem;
+    gap: 2rem;
+  }
+
+  .redil-banner__text {
+    flex: 0 1 55%;
+  }
+
+  .redil-banner__title {
+    font-family: var(--font-heading);
+    font-size: 1.75rem;
+    color: var(--white);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .redil-banner__desc {
+    font-size: 0.9375rem;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.7;
+    margin-bottom: 0.75rem;
+  }
+
+  .redil-banner__desc:last-child {
+    margin-bottom: 0;
+  }
+
+  .redil-banner__photos {
+    flex: 0 1 45%;
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  .redil-banner__photo {
+    width: 180px;
+    height: 240px;
+    object-fit: cover;
+    border-radius: 6px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  }
+
+  .redil-banner__photo--offset {
+    margin-top: 2rem;
+  }
+
+  @media (max-width: 768px) {
+    .redil-banner__content {
+      flex-direction: column;
+    }
+
+    .redil-banner__text {
+      flex: 0 1 100%;
+    }
+
+    .redil-banner__photos {
+      flex: 0 1 100%;
+      justify-content: center;
+    }
+
+    .redil-banner__photo {
+      width: 140px;
+      height: 180px;
+    }
+  }
+</style>

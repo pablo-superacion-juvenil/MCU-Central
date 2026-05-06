@@ -1,0 +1,26 @@
+[
+  {
+    "id": "playera-classic",
+    "name": "Playera MCU Classic",
+    "price": 350,
+    "category": "playeras",
+    "image": "/images/merch/playera-classic.jpg",
+    "whatsappMessage": "Hola, me interesa la Playera MCU Classic ($350 MXN)"
+  },
+  {
+    "id": "hoodie-redil",
+    "name": "Hoodie REDIL 2025",
+    "price": 650,
+    "category": "hoodies",
+    "image": "/images/merch/hoodie-redil.jpg",
+    "whatsappMessage": "Hola, me interesa el Hoodie REDIL 2025 ($650 MXN)"
+  },
+  {
+    "id": "sticker-pack",
+    "name": "Sticker Pack",
+    "price": 80,
+    "category": "accesorios",
+    "image": "/images/merch/sticker-pack.jpg",
+    "whatsappMessage": "Hola, me interesa el Sticker Pack ($80 MXN)"
+  }
+]

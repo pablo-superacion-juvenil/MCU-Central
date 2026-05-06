@@ -1,0 +1,58 @@
+---
+interface Props {
+  tag: string;
+  title: string;
+  tagline?: string;
+}
+const { tag, title, tagline } = Astro.props;
+---
+
+<div class="section-header">
+  <span class="section-header__tag">{tag}</span>
+  <h2 class="section-header__title">{title}</h2>
+  <div class="section-header__line"></div>
+  {tagline && <p class="section-header__tagline">{tagline}</p>}
+</div>
+
+<style>
+  .section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .section-header__tag {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    color: var(--red);
+  }
+
+  .section-header__title {
+    font-family: var(--font-heading);
+    font-size: clamp(2rem, 5vw, 3rem);
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: var(--navy);
+    margin-top: 0.5rem;
+  }
+
+  .section-header__line {
+    width: 50px;
+    height: 3px;
+    background: var(--red);
+    margin: 0.75rem auto 0;
+  }
+
+  .section-header__tagline {
+    font-style: italic;
+    color: var(--gray);
+    font-size: 0.875rem;
+    margin-top: 0.75rem;
+  }
+
+  :global(.dark-bg) .section-header__title {
+    color: var(--white);
+  }
+</style>

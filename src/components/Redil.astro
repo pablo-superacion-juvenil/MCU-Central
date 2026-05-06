@@ -1,0 +1,53 @@
+---
+import SectionHeader from './SectionHeader.astro';
+import RedilBanner from './RedilBanner.astro';
+import RedilPilares from './RedilPilares.astro';
+import PhotoGrid from './PhotoGrid.astro';
+
+import redil3 from '../assets/images/redil/redil-3.jpg';
+import redil4 from '../assets/images/redil/redil-4.jpg';
+import redil5 from '../assets/images/redil/redil-5.jpg';
+import redil6 from '../assets/images/redil/redil-6.jpg';
+import redil7 from '../assets/images/redil/redil-7.jpg';
+---
+
+<section id="redil">
+  <div class="section-padding">
+    <SectionHeader
+      tag="Retiro de Líderes"
+      title="REDIL"
+      tagline="Equipando líderes misioneros para hacer crecer la misión"
+    />
+  </div>
+  <RedilBanner />
+  <RedilPilares />
+  <PhotoGrid images={[redil3, redil4, redil5, redil6, redil7]} />
+  <div class="redil-cta">
+    <a href="/contacto" class="redil-cta__btn">Quiero participar</a>
+  </div>
+</section>
+
+<style>
+  .redil-cta {
+    text-align: center;
+    padding: 3rem 1.5rem;
+  }
+
+  .redil-cta__btn {
+    display: inline-block;
+    background: var(--red);
+    color: var(--white);
+    padding: 0.75rem 2rem;
+    border-radius: 24px;
+    font-size: 0.875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-decoration: none;
+    letter-spacing: 1px;
+    transition: background 0.2s ease;
+  }
+
+  .redil-cta__btn:hover {
+    background: #c42a52;
+  }
+</style>

@@ -1,0 +1,137 @@
+---
+import { Image } from 'astro:assets';
+import flame from '../assets/images/logos/flame.png';
+import { Instagram, MessageCircle, Mail } from 'lucide-astro';
+---
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <!-- Logo -->
+    <Image
+      src={flame}
+      alt="MCU Flame Logo"
+      width={60}
+      height={75}
+      class="footer-logo"
+    />
+
+    <!-- Motto -->
+    <p class="footer-motto">Todo por amor a Cristo</p>
+
+    <!-- Nav links -->
+    <nav class="footer-nav" aria-label="Footer navigation">
+      <a href="/#inicio" class="footer-link">Inicio</a>
+      <a href="/#nosotros" class="footer-link">Nosotros</a>
+      <a href="/#redil" class="footer-link">REDIL</a>
+      <a href="/contacto" class="footer-link">Contáctanos</a>
+      <a href="/merch" class="footer-link">Merch</a>
+    </nav>
+
+    <!-- Social icons -->
+    <div class="footer-social">
+      <a href="#" class="footer-social-link" aria-label="Instagram">
+        <Instagram size={20} />
+      </a>
+      <a href="#" class="footer-social-link" aria-label="WhatsApp">
+        <MessageCircle size={20} />
+      </a>
+      <a href="#" class="footer-social-link" aria-label="Email">
+        <Mail size={20} />
+      </a>
+    </div>
+
+    <!-- Copyright -->
+    <p class="footer-copyright">
+      &copy; {new Date().getFullYear()} Misión Católica Universitaria
+    </p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--navy);
+    padding: 3rem 1.5rem 1.5rem;
+  }
+
+  .footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  /* ── Logo ──────────────────────────────────────────────────── */
+  .footer-logo {
+    display: block;
+    margin: 0 auto;
+    width: 60px;
+    height: 75px;
+    object-fit: contain;
+  }
+
+  /* ── Motto ─────────────────────────────────────────────────── */
+  .footer-motto {
+    font-family: var(--font-body);
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9375rem;
+    margin-top: 0.75rem;
+  }
+
+  /* ── Nav links ─────────────────────────────────────────────── */
+  .footer-nav {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+  }
+
+  .footer-link {
+    font-family: var(--font-body);
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.8125rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .footer-link:hover {
+    color: var(--white);
+  }
+
+  /* ── Social icons ──────────────────────────────────────────── */
+  .footer-social {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+
+  .footer-social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    transition: border-color 0.2s ease, color 0.2s ease;
+  }
+
+  .footer-social-link:hover {
+    border-color: var(--red);
+    color: var(--red);
+  }
+
+  /* ── Copyright ─────────────────────────────────────────────── */
+  .footer-copyright {
+    font-family: var(--font-body);
+    margin-top: 2rem;
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.4);
+  }
+</style>
