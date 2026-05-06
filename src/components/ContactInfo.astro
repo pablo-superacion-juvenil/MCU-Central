@@ -1,0 +1,139 @@
+---
+import { Instagram, MessageCircle, Mail } from 'lucide-astro';
+---
+
+<div class="contact-info">
+  <h2 class="contact-info__title">Info</h2>
+
+  <div class="contact-info__items">
+    <div class="contact-info__item">
+      <span class="contact-info__label">Email</span>
+      <a href="mailto:contacto@mcu.org" class="contact-info__value">contacto@mcu.org</a>
+    </div>
+
+    <div class="contact-info__item">
+      <span class="contact-info__label">Instagram</span>
+      <a
+        href="https://instagram.com/mcu_oficial"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="contact-info__value"
+      >@mcu_oficial</a>
+    </div>
+
+    <div class="contact-info__item">
+      <span class="contact-info__label">WhatsApp</span>
+      <a
+        href="https://wa.me/52xxxxxxxxxx"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="contact-info__value"
+      >+52 xxx xxx xxxx</a>
+    </div>
+  </div>
+
+  <div class="contact-info__social">
+    <a
+      href="https://instagram.com/mcu_oficial"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="contact-info__social-link"
+      aria-label="Instagram"
+    >
+      <Instagram size={18} />
+    </a>
+    <a
+      href="https://wa.me/52xxxxxxxxxx"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="contact-info__social-link"
+      aria-label="WhatsApp"
+    >
+      <MessageCircle size={18} />
+    </a>
+    <a
+      href="mailto:contacto@mcu.org"
+      class="contact-info__social-link"
+      aria-label="Email"
+    >
+      <Mail size={18} />
+    </a>
+  </div>
+</div>
+
+<style>
+  .contact-info {
+    background: var(--navy);
+    border-radius: 8px;
+    padding: 2rem;
+    color: white;
+  }
+
+  .contact-info__title {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--white);
+    margin-bottom: 2rem;
+  }
+
+  .contact-info__items {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .contact-info__item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .contact-info__label {
+    font-size: 0.6875rem;
+    color: var(--red);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 700;
+  }
+
+  .contact-info__value {
+    font-size: 0.9375rem;
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .contact-info__value:hover {
+    color: var(--white);
+  }
+
+  .contact-info__social {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .contact-info__social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    transition: border-color 0.2s ease, color 0.2s ease;
+  }
+
+  .contact-info__social-link:hover {
+    border-color: var(--red);
+    color: var(--red);
+  }
+</style>
