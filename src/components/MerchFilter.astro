@@ -1,0 +1,73 @@
+---
+const categories = [
+  { id: 'todo', label: 'Todo' },
+  { id: 'playeras', label: 'Playeras' },
+  { id: 'hoodies', label: 'Hoodies' },
+  { id: 'accesorios', label: 'Accesorios' },
+];
+---
+
+<div class="merch-filter">
+  {categories.map((cat) => (
+    <button
+      class={`merch-filter__btn${cat.id === 'todo' ? ' merch-filter__btn--active' : ''}`}
+      data-filter={cat.id}
+    >
+      {cat.label}
+    </button>
+  ))}
+</div>
+
+<style>
+  .merch-filter {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 2rem 1.5rem;
+    flex-wrap: wrap;
+    border-bottom: 1px solid var(--gray-light);
+  }
+
+  .merch-filter__btn {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--gray);
+    background: none;
+    border: none;
+    padding: 0.375rem 1rem;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+
+  .merch-filter__btn--active {
+    background: var(--navy);
+    color: var(--white);
+  }
+
+  .merch-filter__btn:hover:not(.merch-filter__btn--active) {
+    background: var(--gray-light);
+  }
+</style>
+
+<script>
+  const filterBtns = document.querySelectorAll('[data-filter]');
+  const cards = document.querySelectorAll('[data-category]');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const filter = btn.getAttribute('data-filter');
+      filterBtns.forEach(b => b.classList.remove('merch-filter__btn--active'));
+      btn.classList.add('merch-filter__btn--active');
+      cards.forEach(card => {
+        if (filter === 'todo' || card.getAttribute('data-category') === filter) {
+          (card as HTMLElement).style.display = '';
+        } else {
+          (card as HTMLElement).style.display = 'none';
+        }
+      });
+    });
+  });
+</script>

@@ -1,0 +1,119 @@
+---
+import { BookOpen, Flame, Cross } from 'lucide-astro';
+
+const pilares = [
+  {
+    icon: 'book',
+    title: 'Capacitarnos',
+    desc: 'Desarrollar habilidades de liderazgo y fortalecer tu identidad misionera.',
+  },
+  {
+    icon: 'flame',
+    title: 'Fortalecer nuestra hermandad',
+    desc: 'Vivir en comunidad, orar juntos y renovar nuestro corazón.',
+  },
+  {
+    icon: 'cross',
+    title: 'Encontrarnos con Dios',
+    desc: 'Un encuentro profundo con Dios para salir enviados a transformar nuestras universidades.',
+  },
+];
+---
+
+<div class="redil-pilares">
+  <p class="redil-pilares__tag">¿Qué haremos?</p>
+  <div class="redil-pilares__grid">
+    {pilares.map((pilar, i) => (
+      <>
+        {i > 0 && <div class="redil-pilares__divider" aria-hidden="true" />}
+        <div class="redil-pilares__item">
+          <div class="redil-pilares__icon-wrap">
+            {pilar.icon === 'book' && <BookOpen size={28} />}
+            {pilar.icon === 'flame' && <Flame size={28} />}
+            {pilar.icon === 'cross' && <Cross size={28} />}
+          </div>
+          <h3 class="redil-pilares__title">{pilar.title}</h3>
+          <p class="redil-pilares__desc">{pilar.desc}</p>
+        </div>
+      </>
+    ))}
+  </div>
+</div>
+
+<style>
+  .redil-pilares {
+    padding: 4rem 1.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .redil-pilares__tag {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    color: var(--red);
+  }
+
+  .redil-pilares__grid {
+    display: flex;
+    margin-top: 2rem;
+    align-items: stretch;
+  }
+
+  .redil-pilares__divider {
+    width: 1px;
+    align-self: stretch;
+    background: var(--gray-divider);
+    flex-shrink: 0;
+  }
+
+  .redil-pilares__item {
+    flex: 1;
+    padding: 1rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .redil-pilares__icon-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: 2px solid var(--navy);
+    color: var(--navy);
+    flex-shrink: 0;
+  }
+
+  .redil-pilares__title {
+    font-family: var(--font-heading);
+    font-size: 1.125rem;
+    color: var(--navy);
+    text-transform: uppercase;
+  }
+
+  .redil-pilares__desc {
+    font-size: 0.875rem;
+    color: var(--gray);
+    line-height: 1.6;
+  }
+
+  @media (max-width: 768px) {
+    .redil-pilares__grid {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .redil-pilares__divider {
+      width: 60%;
+      height: 1px;
+      align-self: center;
+    }
+  }
+</style>
