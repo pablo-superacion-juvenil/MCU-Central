@@ -26,6 +26,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 70px;
 }
 
 body {
@@ -56,5 +57,26 @@ a {
 @media (max-width: 768px) {
   .section-padding {
     padding: 3rem 1rem;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .section-padding,
+  .objetivos,
+  .redil-banner,
+  .pilares,
+  .photo-grid {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .section-padding.visible,
+  .objetivos.visible,
+  .redil-banner.visible,
+  .pilares.visible,
+  .photo-grid.visible {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
