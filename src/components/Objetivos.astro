@@ -1,0 +1,99 @@
+---
+import SectionHeader from './SectionHeader.astro';
+import { Cross, Users, BookOpen } from 'lucide-astro';
+
+const objetivos = [
+  {
+    icon: 'cross',
+    title: 'Misionero',
+    description: 'Evangelizar en las universidades y llevar a otros jóvenes a una relación personal con Jesucristo y a una vida dedicada como discípulo a través de la proclamación viva de su Palabra y del testimonio de vida.',
+  },
+  {
+    icon: 'users',
+    title: 'Comunitario',
+    description: 'Ayudar a sus miembros a vivir comunitariamente su cristianismo y proveerles de ambientes adecuados y de oportunidades para establecer relaciones personales cristianas.',
+  },
+  {
+    icon: 'book',
+    title: 'Formativo',
+    description: 'Proveer de formación en servicio, carácter y liderazgo cristiano a sus miembros.',
+  },
+];
+---
+
+<section class="objetivos">
+  <div class="objetivos__inner dark-bg">
+    <SectionHeader tag="Lo que nos mueve" title="Nuestros Objetivos" />
+    <div class="objetivos__grid">
+      {objetivos.map((obj) => (
+        <div class="objetivos__card">
+          <div class="objetivos__icon-wrap">
+            {obj.icon === 'cross' && <Cross size={28} color="white" />}
+            {obj.icon === 'users' && <Users size={28} color="white" />}
+            {obj.icon === 'book' && <BookOpen size={28} color="white" />}
+          </div>
+          <h3 class="objetivos__card-title">{obj.title}</h3>
+          <p class="objetivos__card-desc">{obj.description}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .objetivos {
+    background: var(--navy);
+    padding: 5rem 1.5rem;
+  }
+
+  .objetivos__inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .objetivos__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+
+  .objetivos__card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 2rem 1.5rem;
+    text-align: center;
+  }
+
+  .objetivos__icon-wrap {
+    width: 56px;
+    height: 56px;
+    background: var(--red);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.25rem;
+  }
+
+  .objetivos__card-title {
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    color: var(--white);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 0.75rem;
+  }
+
+  .objetivos__card-desc {
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.6);
+    line-height: 1.7;
+  }
+
+  @media (max-width: 768px) {
+    .objetivos__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
