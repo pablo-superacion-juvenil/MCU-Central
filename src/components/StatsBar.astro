@@ -1,0 +1,99 @@
+---
+const stats = [
+  { value: 45, suffix: '+', label: 'Años' },
+  { value: 15, suffix: '', label: "MCU's" },
+  { value: 200, suffix: '+', label: 'Misioneros' },
+];
+---
+
+<section class="stats-bar">
+  <div class="stats-bar__inner">
+    {stats.map((stat) => (
+      <div class="stats-bar__item">
+        <span class="stats-bar__number" data-target={stat.value} data-suffix={stat.suffix}>
+          0{stat.suffix}
+        </span>
+        <span class="stats-bar__label">{stat.label}</span>
+      </div>
+    ))}
+  </div>
+</section>
+
+<script>
+  function animateCountUp(el: HTMLElement) {
+    const target = parseInt(el.dataset.target || '0', 10);
+    const suffix = el.dataset.suffix || '';
+    const duration = 1500;
+    const start = performance.now();
+
+    function tick(now: number) {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const current = Math.round(eased * target);
+      el.textContent = `${current}${suffix}`;
+      if (progress < 1) requestAnimationFrame(tick);
+    }
+
+    requestAnimationFrame(tick);
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.querySelectorAll<HTMLElement>('.stats-bar__number').forEach(animateCountUp);
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.3 }
+  );
+
+  document.querySelectorAll('.stats-bar').forEach((el) => observer.observe(el));
+</script>
+
+<style>
+  .stats-bar {
+    background: var(--navy);
+    padding: 3.5rem 1.5rem;
+  }
+
+  .stats-bar__inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    gap: 4rem;
+  }
+
+  .stats-bar__item {
+    text-align: center;
+  }
+
+  .stats-bar__number {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: clamp(3rem, 8vw, 4rem);
+    color: var(--white);
+    letter-spacing: 2px;
+    line-height: 1;
+  }
+
+  .stats-bar__label {
+    display: block;
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: rgba(255, 255, 255, 0.6);
+    margin-top: 0.5rem;
+  }
+
+  @media (max-width: 768px) {
+    .stats-bar__inner {
+      gap: 2rem;
+    }
+  }
+</style>

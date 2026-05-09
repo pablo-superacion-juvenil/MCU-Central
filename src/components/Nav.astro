@@ -3,7 +3,7 @@ import { Image } from 'astro:assets';
 import logoFull from '../assets/images/logos/logo-full.png';
 
 interface Props {
-  currentPage?: 'home' | 'merch' | 'contacto';
+  currentPage?: 'home' | 'nosotros' | 'redil' | 'merch' | 'contacto';
 }
 
 const { currentPage = 'home' } = Astro.props;
@@ -27,15 +27,15 @@ const { currentPage = 'home' } = Astro.props;
     <ul class="nav-links" id="nav-links" role="list">
       <li>
         <a
-          href="/#inicio"
-          class:list={['nav-link', { active: currentPage === 'home' }]}
-        >Inicio</a>
+          href="/nosotros"
+          class:list={['nav-link', { active: currentPage === 'nosotros' }]}
+        >Nosotros</a>
       </li>
       <li>
-        <a href="/#nosotros" class="nav-link">Nosotros</a>
-      </li>
-      <li>
-        <a href="/#redil" class="nav-link">REDIL</a>
+        <a
+          href="/redil"
+          class:list={['nav-link', { active: currentPage === 'redil' }]}
+        >REDIL</a>
       </li>
       <li>
         <a
