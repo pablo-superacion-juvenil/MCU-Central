@@ -36,7 +36,7 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
     }
 
     const apiKey = import.meta.env.RESEND_API_KEY;
-    const contactEmail = import.meta.env.CONTACT_EMAIL || 'contacto@mcu.org';
+    const contactEmail = import.meta.env.CONTACT_EMAIL || 'mcucentral79@gmail.com';
 
     if (!apiKey) {
       return new Response(

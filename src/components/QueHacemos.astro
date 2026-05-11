@@ -1,0 +1,111 @@
+---
+import { Flame, BookOpen, Users, Zap, Globe } from 'lucide-astro';
+
+const items = [
+  { icon: 'flame', title: 'Asambleas universitarias de oración', desc: 'Espacios de encuentro con Dios donde los universitarios oran y alaban juntos.' },
+  { icon: 'book', title: 'Formación cristiana', desc: 'Crecimiento en la fe a través del estudio y la reflexión de la Palabra de Dios.' },
+  { icon: 'users', title: 'Grupos pequeños', desc: 'Comunidades cercanas para compartir la vida y crecer juntos en Cristo.' },
+  { icon: 'zap', title: 'Retiros de Alto Impacto: Kerygma', desc: 'Experiencias transformadoras de encuentro personal con Jesucristo.' },
+  { icon: 'globe', title: 'Encuentros nacionales de universitarios', desc: 'Reuniones que unen a misioneros de todo el país en una sola misión.' },
+];
+---
+
+<section class="que-hacemos">
+  <p class="que-hacemos__tag">¿Qué hacemos?</p>
+  <div class="que-hacemos__grid">
+    {items.map((item, i) => (
+      <>
+        {i > 0 && <div class="que-hacemos__divider" aria-hidden="true" />}
+        <div class="que-hacemos__item">
+          <div class="que-hacemos__icon-wrap">
+            {item.icon === 'flame' && <Flame size={28} />}
+            {item.icon === 'book' && <BookOpen size={28} />}
+            {item.icon === 'users' && <Users size={28} />}
+            {item.icon === 'zap' && <Zap size={28} />}
+            {item.icon === 'globe' && <Globe size={28} />}
+          </div>
+          <h3 class="que-hacemos__title">{item.title}</h3>
+          <p class="que-hacemos__desc">{item.desc}</p>
+        </div>
+      </>
+    ))}
+  </div>
+</section>
+
+<style>
+  .que-hacemos {
+    padding: 4rem 1.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .que-hacemos__tag {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    color: var(--red);
+  }
+
+  .que-hacemos__grid {
+    display: flex;
+    margin-top: 2rem;
+    align-items: stretch;
+  }
+
+  .que-hacemos__divider {
+    width: 1px;
+    align-self: stretch;
+    background: var(--gray-divider);
+    flex-shrink: 0;
+  }
+
+  .que-hacemos__item {
+    flex: 1;
+    padding: 1rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .que-hacemos__icon-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: 2px solid var(--navy);
+    color: var(--navy);
+    flex-shrink: 0;
+  }
+
+  .que-hacemos__title {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    color: var(--navy);
+    text-transform: uppercase;
+  }
+
+  .que-hacemos__desc {
+    font-size: 0.8125rem;
+    color: var(--gray);
+    line-height: 1.6;
+  }
+
+  @media (max-width: 768px) {
+    .que-hacemos__grid {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .que-hacemos__divider {
+      width: 60%;
+      height: 1px;
+      align-self: center;
+    }
+  }
+</style>

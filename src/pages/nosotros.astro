@@ -2,25 +2,25 @@
 import Layout from '../layouts/Layout.astro';
 import Nav from '../components/Nav.astro';
 import PageHero from '../components/PageHero.astro';
-import SectionHeader from '../components/SectionHeader.astro';
-import Historia from '../components/Historia.astro';
 import Objetivos from '../components/Objetivos.astro';
-import PhotoStrip from '../components/PhotoStrip.astro';
+import PhotoDivider from '../components/PhotoDivider.astro';
+import Creencias from '../components/Creencias.astro';
+import Historia from '../components/Historia.astro';
 import Footer from '../components/Footer.astro';
 
-import nosotros1 from '../assets/images/nosotros/nosotros-1.jpg';
-import nosotros2 from '../assets/images/nosotros/nosotros-2.jpg';
-import nosotros3 from '../assets/images/nosotros/nosotros-3.jpg';
-import nosotros4 from '../assets/images/nosotros/nosotros-4.jpg';
+import portada1 from '../assets/images/portada/portada-1.jpg';
+import portada3 from '../assets/images/portada/portada-3.jpg';
+import portada5 from '../assets/images/portada/portada-5.jpg';
 ---
 
 <Layout title="Nosotros — MCU">
   <Nav currentPage="nosotros" />
   <PageHero title="Quiénes Somos" />
-  <section class="section-padding">
-    <Historia />
-  </section>
   <Objetivos />
-  <PhotoStrip images={[nosotros1, nosotros2, nosotros3, nosotros4]} />
+  <PhotoDivider image={portada1} alt="Comunidad MCU" />
+  <Creencias />
+  <PhotoDivider image={portada3} alt="Jóvenes MCU en acción" />
+  <Historia />
+  <PhotoDivider image={portada5} alt="Evento MCU" />
   <Footer />
 </Layout>

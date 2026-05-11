@@ -9,7 +9,7 @@ interface Props {
 
 const { name, price, image, whatsappMessage, category } = Astro.props;
 
-const whatsappNumber = import.meta.env.WHATSAPP_NUMBER || '521XXXXXXXXXX';
+const whatsappNumber = import.meta.env.WHATSAPP_NUMBER || '528126174391';
 const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
 ---
 

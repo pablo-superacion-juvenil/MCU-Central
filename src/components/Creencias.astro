@@ -1,0 +1,122 @@
+---
+const verdades = [
+  {
+    num: 'Primera',
+    title: 'Dios nos ama.',
+    text: 'Hemos descubierto la verdad más importante: Dios vive entre nosotros, nos ama infinitamente y desea que tengamos vida en abundancia.',
+  },
+  {
+    num: 'Segunda',
+    title: 'Somos pecadores.',
+    text: 'Reconocemos que somos pecadores y que estábamos separados del amor de Dios sin poderlo remediar por nuestras propias fuerzas.',
+  },
+  {
+    num: 'Tercera',
+    title: 'Dios nos ofrece la salvación en Cristo.',
+    text: 'Hacemos nuestro el regalo de la salvación que Dios nos ofrece en Cristo mediante la fe, el arrepentimiento de nuestros pecados y la aceptación de Cristo como nuestro Salvador y Señor.',
+  },
+  {
+    num: 'Cuarta',
+    title: 'Hacemos nuestra la Vida en el Espíritu.',
+    text: 'Dios nos dio su Espíritu Santo para tener una nueva vida. Queremos vivir en su poder y ser guiados y transformados por Él.',
+  },
+];
+---
+
+<section class="creencias">
+  <div class="creencias__inner">
+    <h2 class="creencias__heading">Declaración de Creencias</h2>
+    <div class="creencias__line"></div>
+    <p class="creencias__intro">
+      Las siguientes son las cuatro verdades que fundamentan nuestra vida cristiana:
+    </p>
+    <div class="creencias__grid">
+      {verdades.map((v, i) => (
+        <div class="creencias__card">
+          <span class="creencias__num">{v.num} Verdad</span>
+          <h3 class="creencias__title">{v.title}</h3>
+          <p class="creencias__text">{v.text}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .creencias {
+    background: var(--navy);
+    padding: 5rem 1.5rem;
+  }
+
+  .creencias__inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .creencias__heading {
+    font-family: var(--font-heading);
+    font-size: clamp(2rem, 5vw, 2.8rem);
+    color: var(--white);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+
+  .creencias__line {
+    width: 50px;
+    height: 3px;
+    background: var(--red);
+    margin: 0.75rem auto 1.5rem;
+  }
+
+  .creencias__intro {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1rem;
+    line-height: 1.7;
+    max-width: 600px;
+    margin: 0 auto 3rem;
+  }
+
+  .creencias__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  .creencias__card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 2rem 1.5rem;
+    text-align: left;
+  }
+
+  .creencias__num {
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--red);
+  }
+
+  .creencias__title {
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    color: var(--white);
+    margin-top: 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .creencias__text {
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.6);
+    line-height: 1.7;
+  }
+
+  @media (max-width: 768px) {
+    .creencias__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
