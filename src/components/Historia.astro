@@ -1,122 +1,39 @@
 ---
-import { Image } from 'astro:assets';
-import nosotros1 from '../assets/images/nosotros/nosotros-1.jpg';
 ---
 
-<div class="historia">
-  <div class="historia__photo">
-    <Image
-      src={nosotros1}
-      alt="Miembros de MCU reunidos"
-      class="historia__img"
-      widths={[400, 700]}
-      sizes="(max-width: 768px) 100vw, 50vw"
-    />
-    <div class="historia__badge">Desde 1979</div>
-  </div>
-
-  <div class="historia__text">
-    <h3 class="historia__title">Nuestra Historia</h3>
-    <p>
-      La Misión Católica Universitaria nació del deseo de un grupo de jóvenes universitarios que, inspirados por el Espíritu Santo, buscaban vivir su fe con radicalidad en el ambiente académico. Fundada entre 1978 y 1981, MCU surge como respuesta a la necesidad de una presencia evangelizadora comprometida dentro de las universidades costarricenses.
-    </p>
-    <p style="margin-top: 1rem;">
-      Desde sus primeros años, MCU se distinguió por su enfoque en la formación integral del joven universitario: intelectual, espiritual y apostólica. A lo largo de décadas, miles de jóvenes han encontrado en MCU una comunidad que los acompaña en su camino de fe y servicio.
-    </p>
-
-    <blockquote class="historia__blockquote">
-      <span class="historia__blockquote-label">Declaración de Identidad</span>
-      <p>
-        MCU es una comunidad de jóvenes universitarios católicos comprometidos con la evangelización, la fraternidad y la formación cristiana, que buscan transformar el ambiente universitario desde el Evangelio de Jesucristo.
-      </p>
-    </blockquote>
-  </div>
-</div>
+<section class="historia section-padding">
+  <h2 class="historia__title">Breve Historia</h2>
+  <div class="historia__line"></div>
+  <p class="historia__text">
+    En 1978, unos estudiantes universitarios, Manuel De Urquidi, Arturo Valdés y Alejandro Vásquez, inician un grupo de hombres para hacer oración y evangelizar en la universidad. Paralelamente, Adriana González comienza un grupo de mujeres. Al conocerse, ambos grupos deciden unirse para formar un sólo grupo que viviera profunda y dedicadamente su catolicismo. El 16 de Agosto de 1979 hacen el primer compromiso unos con otros comenzando el "grupo de los viernes" que, en 1981, recibió el nombre de Misión Católica Universitaria.
+  </p>
+</section>
 
 <style>
   .historia {
-    display: flex;
-    gap: 3rem;
-    align-items: flex-start;
-    margin-top: 2rem;
-  }
-
-  .historia__photo {
-    flex: 1;
-    position: relative;
-    min-height: 300px;
-  }
-
-  .historia__img {
-    width: 100%;
-    height: 100%;
-    min-height: 300px;
-    object-fit: cover;
-    border-radius: 8px;
-  }
-
-  .historia__badge {
-    position: absolute;
-    bottom: 1rem;
-    left: 1rem;
-    background: var(--navy);
-    color: var(--white);
-    font-size: 0.75rem;
-    font-weight: 700;
-    padding: 0.4rem 0.75rem;
-    border-radius: 4px;
-    letter-spacing: 1px;
-  }
-
-  .historia__text {
-    flex: 1;
+    text-align: center;
+    max-width: 800px;
   }
 
   .historia__title {
     font-family: var(--font-heading);
-    font-size: 1.75rem;
+    font-size: clamp(2rem, 5vw, 2.8rem);
     color: var(--navy);
-    margin-bottom: 1rem;
-  }
-
-  .historia__text p {
-    color: var(--gray);
-    font-size: 0.9375rem;
-    line-height: 1.7;
-  }
-
-  .historia__blockquote {
-    margin-top: 1.5rem;
-    border-left: 3px solid var(--red);
-    background: var(--cream);
-    padding: 1rem 1.25rem;
-    border-radius: 0 4px 4px 0;
-  }
-
-  .historia__blockquote-label {
-    display: block;
-    font-family: var(--font-body);
-    font-size: 0.75rem;
-    font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 2px;
-    color: var(--red);
-    margin-bottom: 0.5rem;
   }
 
-  .historia__blockquote p {
-    font-style: italic;
-    color: var(--navy);
-    font-size: 0.9375rem;
+  .historia__line {
+    width: 50px;
+    height: 3px;
+    background: var(--red);
+    margin: 0.75rem auto 2rem;
   }
 
-  @media (max-width: 768px) {
-    .historia {
-      flex-direction: column;
-    }
-
-    .historia__photo {
-      width: 100%;
-    }
+  .historia__text {
+    color: var(--gray);
+    font-size: 1rem;
+    line-height: 1.8;
+    text-align: left;
   }
 </style>
