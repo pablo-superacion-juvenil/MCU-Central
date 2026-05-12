@@ -8,7 +8,6 @@ import Historia from '../components/Historia.astro';
 import Footer from '../components/Footer.astro';
 
 import portada1 from '../assets/images/portada/portada-1.jpg';
-import portada3 from '../assets/images/portada/portada-3.jpg';
 import portada5 from '../assets/images/portada/portada-5.jpg';
 ---
 
@@ -16,8 +15,18 @@ import portada5 from '../assets/images/portada/portada-5.jpg';
   <Nav currentPage="nosotros" />
   <PageHero title="Quiénes Somos" />
   <Objetivos />
-  <PhotoDivider image={portada1} alt="Comunidad MCU" />
+  <PhotoDivider
+    image={portada1}
+    alt="Asamblea de evangelización MCU"
+    height="500px"
+    position="center 60%"
+  />
   <Historia />
-  <PhotoDivider image={portada5} alt="Evento MCU" />
+  <PhotoDivider
+    image={portada5}
+    alt="Hermanos de MCU"
+    height="500px"
+    position="center 30%"
+  />
   <Footer />
 </Layout>
