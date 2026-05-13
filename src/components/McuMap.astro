@@ -469,11 +469,27 @@ const standaloneLocations = locations.filter(l => !l.cluster);
   }
 
   @media (max-width: 500px) {
-    .mcu-map-container {
-      display: none;
-    }
     .mcu-list-grid {
       grid-template-columns: 1fr;
+    }
+
+    .map-marker {
+      width: 34px;
+      height: 34px;
+    }
+
+    .marker-dot {
+      width: 14px;
+      height: 14px;
+    }
+
+    .map-cluster {
+      width: 40px;
+      height: 40px;
+    }
+
+    .cluster-count {
+      font-size: 0.875rem;
     }
   }
 </style>
