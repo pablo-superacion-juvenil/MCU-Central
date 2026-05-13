@@ -1,0 +1,81 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import PageHero from '../components/PageHero.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import McuMap from '../components/McuMap.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="Únete — MCU">
+  <Nav currentPage="unete" />
+  <PageHero title="Únete a un MCU" />
+
+  <section class="unete-intro section-padding">
+    <p class="unete-intro__text">
+      MCU tiene presencia en diversas ciudades de México. Encuentra el grupo más cercano a ti y únete a la comunidad.
+    </p>
+  </section>
+
+  <SectionHeader
+    tag="Encuéntranos"
+    title="¿Dónde hay MCUs?"
+  />
+
+  <McuMap />
+
+  <section class="unete-cta section-padding">
+    <h2 class="unete-cta__title">¿No hay MCU en tu ciudad?</h2>
+    <p class="unete-cta__text">Contáctanos y te ayudamos a iniciar uno.</p>
+    <a href="/contacto" class="unete-cta__btn">Contáctanos</a>
+  </section>
+
+  <Footer />
+</Layout>
+
+<style>
+  .unete-intro__text {
+    text-align: center;
+    font-size: 1.0625rem;
+    color: var(--gray);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  .unete-cta {
+    text-align: center;
+  }
+
+  .unete-cta__title {
+    font-family: var(--font-heading);
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 0.5rem;
+  }
+
+  .unete-cta__text {
+    color: var(--gray);
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .unete-cta__btn {
+    display: inline-block;
+    background: var(--red);
+    color: var(--white);
+    padding: 0.75rem 2rem;
+    border-radius: 24px;
+    font-size: 0.875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-decoration: none;
+    letter-spacing: 1px;
+    transition: background 0.2s ease;
+  }
+
+  .unete-cta__btn:hover {
+    background: #c42a52;
+  }
+</style>

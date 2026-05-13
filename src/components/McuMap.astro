@@ -1,0 +1,479 @@
+---
+import { Instagram } from 'lucide-astro';
+
+interface McuLocation {
+  id: string;
+  name: string;
+  instagram: string;
+  handle: string;
+  x: number;
+  y: number;
+  cluster?: string;
+}
+
+// Geographic projection: x = (120-lon)/34*100, y = (34-lat)/20*65
+// viewBox = "0 0 100 65"
+const locations: McuLocation[] = [
+  { id: 'mexicali', name: 'Mexicali', instagram: 'https://www.instagram.com/mcumexicali?igsh=MWhpN2Y4YzY5MGkxbA==', handle: '@mcumexicali', x: 13.2, y: 4.6 },
+  { id: 'mty-tec', name: 'MTY — Tec', instagram: 'https://www.instagram.com/mcutec.mty?igsh=MThvbjh1bW5oOHRsZA==', handle: '@mcutec.mty', x: 57.9, y: 26.9, cluster: 'monterrey' },
+  { id: 'mty-udem', name: 'MTY — UDEM', instagram: 'https://www.instagram.com/mcuudem?igsh=MTh2ZWowMGF5amZjdw==', handle: '@mcuudem', x: 57.9, y: 26.9, cluster: 'monterrey' },
+  { id: 'mty-norte', name: 'MTY — Norte (UANL)', instagram: 'https://www.instagram.com/norte_mcu?igsh=YmFxemE0a2JlNGJ0', handle: '@norte_mcu', x: 57.9, y: 26.9, cluster: 'monterrey' },
+  { id: 'tampico', name: 'Tampico', instagram: 'https://www.instagram.com/mcutampico?igsh=bW04ODFpYWh6ZXk0', handle: '@mcutampico', x: 65.0, y: 38.4 },
+  { id: 'san-miguel', name: 'San Miguel de Allende', instagram: 'https://www.instagram.com/mcusanmiguel?igsh=YTR6MjJjN2J4NWh2', handle: '@mcusanmiguel', x: 56.8, y: 42.6, cluster: 'bajio' },
+  { id: 'queretaro', name: 'Querétaro', instagram: 'https://www.instagram.com/mcuqueretaro?igsh=MWl4N3A0aHZkdjR3Yg==', handle: '@mcuqueretaro', x: 57.6, y: 43.6, cluster: 'bajio' },
+  { id: 'xalapa', name: 'Xalapa', instagram: 'https://www.instagram.com/xalapamcu?igsh=MXhvd2ZneThqZDdnOA==', handle: '@xalapamcu', x: 67.9, y: 47.1 },
+  { id: 'edo-mex', name: 'Estado de México', instagram: 'https://www.instagram.com/mcu_edo_mex?igsh=MXBhbHZoOGU2M3M5Zw==', handle: '@mcu_edo_mex', x: 61.2, y: 46.8, cluster: 'centro' },
+  { id: 'cuernavaca', name: 'Cuernavaca', instagram: 'https://www.instagram.com/mcucuernavaca?igsh=dTZpc2E2NWNyeXdh', handle: '@mcucuernavaca', x: 61.2, y: 49.1, cluster: 'centro' },
+  { id: 'puebla', name: 'Puebla', instagram: 'https://www.instagram.com/mcj_puebla?igsh=MTRkNTc2cmZsa3VhaQ==', handle: '@mcj_puebla', x: 64.1, y: 48.8, cluster: 'centro' },
+  { id: 'acapulco', name: 'Acapulco', instagram: 'https://www.instagram.com/mcu_acapulco?igsh=NnJxa3NlY3JwZWZx', handle: '@mcu_acapulco', x: 59.1, y: 55.6 },
+  { id: 'merida', name: 'Mérida', instagram: 'https://www.instagram.com/mcu_merida?igsh=czlsZjQ3eXcyc2s1', handle: '@mcu_merida', x: 89.4, y: 42.4 },
+];
+
+const clusters = [
+  { id: 'monterrey', label: 'Monterrey', count: 3, x: 57.9, y: 26.9 },
+  { id: 'bajio', label: 'Bajío', count: 2, x: 57.2, y: 43.1 },
+  { id: 'centro', label: 'Centro', count: 3, x: 62.2, y: 48.2 },
+];
+
+const standaloneLocations = locations.filter(l => !l.cluster);
+---
+
+<section class="mcu-map-section">
+  <div class="mcu-map-container">
+    <div class="map-wrapper" id="map-wrapper">
+      <svg viewBox="0 0 100 65" class="mexico-svg" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Mapa de MCUs en México">
+        <!-- Baja California peninsula -->
+        <path class="mexico-outline" d="
+          M 8.8,4.9 L 13.2,4.6
+          L 14.5,8 L 15.5,13 L 17,19.5 L 19,24 L 22,29 L 26,33 L 30,36.5
+          L 27,37.5 L 23,34 L 19,29.5 L 15.5,24 L 12.5,18 L 10,13 L 8,8 Z
+        " />
+        <!-- Mainland Mexico -->
+        <path class="mexico-outline" d="
+          M 19.1,8.8
+          L 26.8,8.8 L 30.9,8.8 L 36,8 L 40,7.5
+          L 48,12 L 52,16 L 55,18 L 57.4,17.2
+          L 60.3,21.1 L 63.8,25.7 L 66.2,26.3
+          L 66,30 L 65.5,34 L 65,38.4
+          L 67,42 L 70.3,48.1 L 75,51.6
+          L 80,50 L 86.8,46.2 L 89.4,42.4
+          L 95,41.5 L 97.6,41.6
+          L 97,44 L 95,47 L 93.2,50.4
+          L 90,52 L 85,56 L 81.5,62.1
+          L 75,59 L 70.3,59.2 L 64,57
+          L 59.1,55.6 L 54.1,53.3
+          L 46.2,48.4 L 43.5,43.6
+          L 40,35.1 L 35,30 L 32.4,26.7
+          L 29,22 L 26.8,19.8 L 23,14
+          Z
+        " />
+      </svg>
+
+      <!-- Markers layer -->
+      <div class="markers-layer">
+        {clusters.map(cluster => (
+          <button
+            class="map-cluster"
+            style={`left: ${cluster.x}%; top: ${cluster.y / 65 * 100}%`}
+            data-cluster={cluster.id}
+            aria-label={`${cluster.label}: ${cluster.count} MCUs`}
+          >
+            <span class="cluster-count">{cluster.count}</span>
+          </button>
+        ))}
+
+        {standaloneLocations.map(loc => (
+          <button
+            class="map-marker"
+            style={`left: ${loc.x}%; top: ${loc.y / 65 * 100}%`}
+            data-location={loc.id}
+            aria-label={loc.name}
+          >
+            <span class="marker-dot"></span>
+          </button>
+        ))}
+      </div>
+
+      <!-- Popup -->
+      <div class="map-popup" id="map-popup" role="dialog" aria-hidden="true">
+        <button class="popup-close" id="popup-close" aria-label="Cerrar">&times;</button>
+        <div class="popup-content" id="popup-content"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile list (always shown below map on all sizes, map hidden on small screens) -->
+  <div class="mcu-list">
+    <div class="mcu-list-grid">
+      {locations.filter(l => l.handle).map(loc => (
+        <a href={loc.instagram} target="_blank" rel="noopener noreferrer" class="mcu-list-item">
+          <span class="mcu-list-icon"><Instagram size={18} /></span>
+          <div class="mcu-list-info">
+            <span class="mcu-list-name">{loc.name}</span>
+            <span class="mcu-list-handle">{loc.handle}</span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script define:vars={{ locations, clusters }}>
+  const wrapper = document.getElementById('map-wrapper');
+  const popup = document.getElementById('map-popup');
+  const popupContent = document.getElementById('popup-content');
+  const popupClose = document.getElementById('popup-close');
+
+  function showPopup(items, anchorEl) {
+    const html = items.map(item => {
+      if (!item.handle) return `<div class="popup-item"><strong>${item.name}</strong></div>`;
+      return `
+        <a href="${item.instagram}" target="_blank" rel="noopener noreferrer" class="popup-item popup-item--link">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          <div>
+            <strong>${item.name}</strong>
+            <span class="popup-handle">${item.handle}</span>
+          </div>
+        </a>
+      `;
+    }).join('');
+
+    popupContent.innerHTML = html;
+    popup.setAttribute('aria-hidden', 'false');
+    popup.classList.add('is-visible');
+
+    const wrapperRect = wrapper.getBoundingClientRect();
+    const markerRect = anchorEl.getBoundingClientRect();
+    const markerCenterX = markerRect.left + markerRect.width / 2 - wrapperRect.left;
+    const markerTop = markerRect.top - wrapperRect.top;
+
+    popup.style.left = `${markerCenterX}px`;
+    popup.style.top = `${markerTop - 10}px`;
+
+    const popupRect = popup.getBoundingClientRect();
+    if (popupRect.left < wrapperRect.left) {
+      popup.style.left = `${popup.offsetWidth / 2 + 8}px`;
+    }
+    if (popupRect.right > wrapperRect.right) {
+      popup.style.left = `${wrapperRect.width - popup.offsetWidth / 2 - 8}px`;
+    }
+    if (popupRect.top < wrapperRect.top) {
+      popup.style.top = `${markerTop + markerRect.height + 10}px`;
+      popup.classList.add('popup--below');
+    } else {
+      popup.classList.remove('popup--below');
+    }
+  }
+
+  function hidePopup() {
+    popup.classList.remove('is-visible');
+    popup.setAttribute('aria-hidden', 'true');
+  }
+
+  document.querySelectorAll('.map-marker').forEach(marker => {
+    marker.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const locId = marker.dataset.location;
+      const loc = locations.find(l => l.id === locId);
+      if (loc) showPopup([loc], marker);
+    });
+  });
+
+  document.querySelectorAll('.map-cluster').forEach(cluster => {
+    cluster.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const clusterId = cluster.dataset.cluster;
+      const items = locations.filter(l => l.cluster === clusterId);
+      if (items.length) showPopup(items, cluster);
+    });
+  });
+
+  popupClose?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    hidePopup();
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!popup.contains(e.target)) hidePopup();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') hidePopup();
+  });
+</script>
+
+<style>
+  .mcu-map-section {
+    padding: 3rem 1.5rem 5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .mcu-map-container {
+    display: block;
+  }
+
+  .map-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .mexico-svg {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .mexico-outline {
+    fill: var(--navy);
+    stroke: rgba(255, 255, 255, 0.15);
+    stroke-width: 0.3;
+  }
+
+  /* ── Markers ───────────────────────────────────────────── */
+  .markers-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+
+  .map-marker {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    width: 28px;
+    height: 28px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    pointer-events: all;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+  }
+
+  .marker-dot {
+    display: block;
+    width: 12px;
+    height: 12px;
+    background: var(--red);
+    border: 2px solid var(--white);
+    border-radius: 50%;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .map-marker:hover .marker-dot,
+  .map-marker:focus .marker-dot {
+    transform: scale(1.4);
+    box-shadow: 0 2px 10px rgba(230, 52, 98, 0.5);
+  }
+
+  .map-cluster {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    width: 36px;
+    height: 36px;
+    background: var(--red);
+    border: 2px solid var(--white);
+    border-radius: 50%;
+    cursor: pointer;
+    pointer-events: all;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    padding: 0;
+  }
+
+  .map-cluster:hover,
+  .map-cluster:focus {
+    transform: translate(-50%, -50%) scale(1.15);
+    box-shadow: 0 4px 14px rgba(230, 52, 98, 0.5);
+  }
+
+  .cluster-count {
+    font-family: var(--font-body);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1;
+  }
+
+  /* ── Popup ─────────────────────────────────────────────── */
+  .map-popup {
+    position: absolute;
+    transform: translate(-50%, -100%);
+    background: var(--white);
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+    padding: 1rem;
+    min-width: 220px;
+    max-width: 280px;
+    z-index: 10;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+  }
+
+  .map-popup.is-visible {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .map-popup::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 8px solid var(--white);
+  }
+
+  .map-popup.popup--below {
+    transform: translate(-50%, 0);
+  }
+
+  .map-popup.popup--below::after {
+    top: -8px;
+    bottom: auto;
+    border-top: none;
+    border-bottom: 8px solid var(--white);
+  }
+
+  .popup-close {
+    position: absolute;
+    top: 0.25rem;
+    right: 0.5rem;
+    background: none;
+    border: none;
+    font-size: 1.25rem;
+    color: var(--gray);
+    cursor: pointer;
+    line-height: 1;
+    padding: 0.25rem;
+  }
+
+  .popup-close:hover {
+    color: var(--navy);
+  }
+
+  :global(.popup-item) {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    padding: 0.5rem 0;
+    color: var(--navy);
+    text-decoration: none;
+    font-family: var(--font-body);
+  }
+
+  :global(.popup-item + .popup-item) {
+    border-top: 1px solid var(--gray-light);
+  }
+
+  :global(.popup-item--link) {
+    transition: color 0.2s ease;
+  }
+
+  :global(.popup-item--link:hover) {
+    color: var(--red);
+  }
+
+  :global(.popup-item strong) {
+    display: block;
+    font-size: 0.8125rem;
+    font-weight: 700;
+  }
+
+  :global(.popup-handle) {
+    display: block;
+    font-size: 0.6875rem;
+    color: var(--gray);
+    margin-top: 1px;
+  }
+
+  :global(.popup-item svg) {
+    flex-shrink: 0;
+    color: var(--red);
+  }
+
+  /* ── List below map ────────────────────────────────────── */
+  .mcu-list {
+    margin-top: 3rem;
+  }
+
+  .mcu-list-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+  }
+
+  .mcu-list-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.875rem 1rem;
+    background: var(--cream);
+    border-radius: 10px;
+    text-decoration: none;
+    color: var(--navy);
+    transition: background 0.2s ease, transform 0.15s ease;
+  }
+
+  .mcu-list-item:hover {
+    background: var(--gray-light);
+    transform: translateY(-1px);
+  }
+
+  .mcu-list-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: var(--red);
+    color: var(--white);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .mcu-list-name {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 700;
+  }
+
+  .mcu-list-handle {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--gray);
+    margin-top: 1px;
+  }
+
+  /* ── Responsive ────────────────────────────────────────── */
+  @media (max-width: 768px) {
+    .mcu-list-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (max-width: 500px) {
+    .mcu-map-container {
+      display: none;
+    }
+    .mcu-list-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
