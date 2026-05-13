@@ -19,20 +19,18 @@ const locations: McuLocation[] = [
   { id: 'mty-udem', name: 'MTY — UDEM', instagram: 'https://www.instagram.com/mcuudem?igsh=MTh2ZWowMGF5amZjdw==', handle: '@mcuudem', x: 57.9, y: 41.7, cluster: 'monterrey' },
   { id: 'mty-norte', name: 'MTY — Norte (UANL)', instagram: 'https://www.instagram.com/norte_mcu?igsh=YmFxemE0a2JlNGJ0', handle: '@norte_mcu', x: 57.9, y: 41.7, cluster: 'monterrey' },
   { id: 'tampico', name: 'Tampico', instagram: 'https://www.instagram.com/mcutampico?igsh=bW04ODFpYWh6ZXk0', handle: '@mcutampico', x: 65.1, y: 58.9 },
-  { id: 'san-miguel', name: 'San Miguel de Allende', instagram: 'https://www.instagram.com/mcusanmiguel?igsh=YTR6MjJjN2J4NWh2', handle: '@mcusanmiguel', x: 56.6, y: 65.4, cluster: 'bajio' },
-  { id: 'queretaro', name: 'Queretaro', instagram: 'https://www.instagram.com/mcuqueretaro?igsh=MWl4N3A0aHZkdjR3Yg==', handle: '@mcuqueretaro', x: 57.7, y: 67.1, cluster: 'bajio' },
+  { id: 'san-miguel', name: 'San Miguel de Allende', instagram: 'https://www.instagram.com/mcusanmiguel?igsh=YTR6MjJjN2J4NWh2', handle: '@mcusanmiguel', x: 56.6, y: 65.4 },
+  { id: 'queretaro', name: 'Queretaro', instagram: 'https://www.instagram.com/mcuqueretaro?igsh=MWl4N3A0aHZkdjR3Yg==', handle: '@mcuqueretaro', x: 57.7, y: 67.1 },
   { id: 'xalapa', name: 'Xalapa', instagram: 'https://www.instagram.com/xalapamcu?igsh=MXhvd2ZneThqZDdnOA==', handle: '@xalapamcu', x: 67.9, y: 72.3 },
-  { id: 'edo-mex', name: 'Estado de Mexico', instagram: 'https://www.instagram.com/mcu_edo_mex?igsh=MXBhbHZoOGU2M3M5Zw==', handle: '@mcu_edo_mex', x: 59.8, y: 73.6, cluster: 'centro' },
-  { id: 'cuernavaca', name: 'Cuernavaca', instagram: 'https://www.instagram.com/mcucuernavaca?igsh=dTZpc2E2NWNyeXdh', handle: '@mcucuernavaca', x: 61.1, y: 75.4, cluster: 'centro' },
-  { id: 'puebla', name: 'Puebla', instagram: 'https://www.instagram.com/mcj_puebla?igsh=MTRkNTc2cmZsa3VhaQ==', handle: '@mcj_puebla', x: 64.1, y: 74.8, cluster: 'centro' },
+  { id: 'edo-mex', name: 'Estado de Mexico', instagram: 'https://www.instagram.com/mcu_edo_mex?igsh=MXBhbHZoOGU2M3M5Zw==', handle: '@mcu_edo_mex', x: 59.8, y: 73.6 },
+  { id: 'cuernavaca', name: 'Cuernavaca', instagram: 'https://www.instagram.com/mcucuernavaca?igsh=dTZpc2E2NWNyeXdh', handle: '@mcucuernavaca', x: 61.1, y: 75.4 },
+  { id: 'puebla', name: 'Puebla', instagram: 'https://www.instagram.com/mcj_puebla?igsh=MTRkNTc2cmZsa3VhaQ==', handle: '@mcj_puebla', x: 64.1, y: 74.8 },
   { id: 'acapulco', name: 'Acapulco', instagram: 'https://www.instagram.com/mcu_acapulco?igsh=NnJxa3NlY3JwZWZx', handle: '@mcu_acapulco', x: 59.2, y: 85.7 },
   { id: 'merida', name: 'Merida', instagram: 'https://www.instagram.com/mcu_merida?igsh=czlsZjQ3eXcyc2s1', handle: '@mcu_merida', x: 89.4, y: 65.2 },
 ];
 
 const clusters = [
   { id: 'monterrey', label: 'Monterrey', count: 3, x: 57.9, y: 41.7 },
-  { id: 'bajio', label: 'Bajio', count: 2, x: 57.2, y: 66.3 },
-  { id: 'centro', label: 'Centro', count: 3, x: 61.7, y: 74.6 },
 ];
 
 const standaloneLocations = locations.filter(l => !l.cluster);
