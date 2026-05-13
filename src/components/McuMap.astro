@@ -146,7 +146,7 @@ const standaloneLocations = locations.filter(l => !l.cluster);
   <div class="mcu-list">
     <div class="mcu-list-grid">
       {locations.filter(l => l.handle).map(loc => (
-        <a href={loc.instagram} target="_blank" rel="noopener noreferrer" class="mcu-list-item">
+        <a href={loc.instagram} target="_blank" rel="noopener noreferrer" class="mcu-list-item" data-location={loc.id}>
           <span class="mcu-list-icon"><Instagram size={18} /></span>
           <div class="mcu-list-info">
             <span class="mcu-list-name">{loc.name}</span>
@@ -240,6 +240,58 @@ const standaloneLocations = locations.filter(l => !l.cluster);
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') hidePopup();
   });
+
+  // Cross-highlight: card ↔ map marker
+  function highlightLocation(locId) {
+    const loc = locations.find(l => l.id === locId);
+    // Highlight map marker or cluster
+    if (loc && loc.cluster) {
+      const cluster = document.querySelector(`.map-cluster[data-cluster="${loc.cluster}"]`);
+      if (cluster) cluster.classList.add('is-highlighted');
+    } else {
+      const marker = document.querySelector(`.map-marker[data-location="${locId}"]`);
+      if (marker) marker.classList.add('is-highlighted');
+    }
+    // Highlight list card
+    const card = document.querySelector(`.mcu-list-item[data-location="${locId}"]`);
+    if (card) card.classList.add('is-highlighted');
+  }
+
+  function clearHighlights() {
+    document.querySelectorAll('.is-highlighted').forEach(el => el.classList.remove('is-highlighted'));
+  }
+
+  // Hover on list cards → highlight map marker
+  document.querySelectorAll('.mcu-list-item').forEach(card => {
+    card.addEventListener('mouseenter', () => {
+      clearHighlights();
+      highlightLocation(card.dataset.location);
+    });
+    card.addEventListener('mouseleave', clearHighlights);
+  });
+
+  // Hover on map markers → highlight list card
+  document.querySelectorAll('.map-marker').forEach(marker => {
+    marker.addEventListener('mouseenter', () => {
+      clearHighlights();
+      highlightLocation(marker.dataset.location);
+    });
+    marker.addEventListener('mouseleave', clearHighlights);
+  });
+
+  // Hover on clusters → highlight all related cards
+  document.querySelectorAll('.map-cluster').forEach(cluster => {
+    cluster.addEventListener('mouseenter', () => {
+      clearHighlights();
+      cluster.classList.add('is-highlighted');
+      const items = locations.filter(l => l.cluster === cluster.dataset.cluster);
+      items.forEach(item => {
+        const card = document.querySelector(`.mcu-list-item[data-location="${item.id}"]`);
+        if (card) card.classList.add('is-highlighted');
+      });
+    });
+    cluster.addEventListener('mouseleave', clearHighlights);
+  });
 </script>
 
 <style>
@@ -317,9 +369,10 @@ const standaloneLocations = locations.filter(l => !l.cluster);
   }
 
   .map-marker:hover .marker-dot,
-  .map-marker:focus .marker-dot {
-    transform: scale(1.4);
-    box-shadow: 0 2px 10px rgba(230, 52, 98, 0.5);
+  .map-marker:focus .marker-dot,
+  .map-marker.is-highlighted .marker-dot {
+    transform: scale(1.5);
+    box-shadow: 0 2px 12px rgba(230, 52, 98, 0.6);
   }
 
   .map-cluster {
@@ -341,7 +394,8 @@ const standaloneLocations = locations.filter(l => !l.cluster);
   }
 
   .map-cluster:hover,
-  .map-cluster:focus {
+  .map-cluster:focus,
+  .map-cluster.is-highlighted {
     transform: translate(-50%, -50%) scale(1.15);
     box-shadow: 0 4px 14px rgba(230, 52, 98, 0.5);
   }
@@ -479,9 +533,11 @@ const standaloneLocations = locations.filter(l => !l.cluster);
     transition: background 0.2s ease, transform 0.15s ease;
   }
 
-  .mcu-list-item:hover {
+  .mcu-list-item:hover,
+  .mcu-list-item.is-highlighted {
     background: var(--gray-light);
     transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(230, 52, 98, 0.15);
   }
 
   .mcu-list-icon {
