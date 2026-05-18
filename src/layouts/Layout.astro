@@ -6,6 +6,8 @@ interface Props {
 
 const { title, description = 'Misión Católica Universitaria — Todo por amor a Cristo' } = Astro.props;
 import '../styles/global.css';
+import Analytics from '@vercel/analytics/astro';
+import SpeedInsights from '@vercel/speed-insights/astro';
 ---
 
 <!doctype html>
@@ -22,6 +24,8 @@ import '../styles/global.css';
   </head>
   <body>
     <slot />
+    <Analytics />
+    <SpeedInsights />
     <script>
       const observer = new IntersectionObserver(
         (entries) => {
